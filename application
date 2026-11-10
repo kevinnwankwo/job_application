@@ -1,0 +1,46 @@
+def place_applicant():
+    print("--- Okoro & Sons Job Application ---")
+    
+    name = input("Enter applicant name: ").strip()
+    gender = input("Enter gender (male/female): ").strip().lower()
+    
+    try:
+        age = int(input("Enter age: "))
+    except ValueError:
+        print("Invalid input! Age must be a whole number. Application rejected.\n")
+        return
+
+    # Check Eligibility Criteria
+    if age < 18:
+        print(f"Sorry {name}, you are disqualified. Company policy does not permit employing individuals under 18.\n")
+        return
+    elif age > 50:
+        print(f"Sorry {name}, you are disqualified. Company policy does not permit employing individuals over 50.\n")
+        return
+
+    # Department Sorting Logic
+    if gender == "male":
+        if age < 25:
+            department = "Customer Care"
+        elif age < 45:
+            department = "Engineering"
+        else:
+            department = "Security"
+    elif gender == "female":
+        if age < 31:
+            department = "Customer Care"
+        else:
+            department = "Admin"
+    else:
+        print("Invalid gender entered. Application rejected.\n")
+        return # Catch misspelled gender options, flag the execution thread as invalid, and cancel the application pipeline
+
+    print(f"Congratulations {name}! You are successful. Posted to: {department} Department.\n")
+
+# Process multiple applicants sequentially
+while True:
+    place_applicant()
+    another = input("Process another applicant? (yes/no): ").strip().lower()
+    if another != 'yes':
+        print("Thank you, now exiting application processing system.")
+        break
